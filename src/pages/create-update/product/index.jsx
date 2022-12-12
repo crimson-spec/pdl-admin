@@ -16,7 +16,11 @@ const CreateUpdateProduct = () => {
   const [categories, setCategories] = useState([]);
   const [description, setDescription] = useState('');
   const [value, setValue] = useState('');
+  const [quantity, setQuantity] = useState('');
+  const [measurement, setMeasurement] = useState('');
   const [status, setStatus] = useState(true);
+
+  let product_image = null;
 
   useEffect(() => {
     const index = async () => {
@@ -24,7 +28,7 @@ const CreateUpdateProduct = () => {
 
       const _categories = data.map((category) => ({
         value: category.id,
-        label: category.name,
+        label: category.description,
       }));
 
       setCategories(_categories);
@@ -35,8 +39,10 @@ const CreateUpdateProduct = () => {
           (category) => category.value == data.category_id
         );
         setCategory(_category);
-        setDescription(data.name);
+        setDescription(data.description);
         setValue(data.value);
+        setQuantity(data.quantity);
+        setMeasurement(data.measurement);
         setStatus(data.status);
       }
     };
@@ -49,11 +55,24 @@ const CreateUpdateProduct = () => {
       return;
     }
     try {
-      await api.post('/products', {
-        name: description,
-        category_id: category.value,
-        value,
-      });
+      const formData = new FormData();
+
+      formData.append('image', product_image);
+      formData.append('description', description);
+      formData.append('category_id', category.value);
+      formData.append('value', value);
+      formData.append('quantity', quantity);
+      formData.append('measurement', measurement);
+      formData.append('status', status);
+
+      if (id) {
+      } else {
+        await api.post('/products', formData, {
+          headers: {
+            'Content-type': 'multipart/form-data',
+          },
+        });
+      }
       // toast.success('Inserido com sucesso!');
       navigate(-1);
     } catch (error) {
@@ -87,6 +106,26 @@ const CreateUpdateProduct = () => {
           type={'number'}
           value={value}
           onChange={(e) => setValue(e.target.value)}
+        />
+        <InputLabel
+          title={'Quantidade*'}
+          type={'number'}
+          value={quantity}
+          onChange={(e) => setQuantity(e.target.value)}
+        />
+        <InputLabel
+          title={'Medida*'}
+          type={'text'}
+          value={measurement}
+          onChange={(e) => setMeasurement(e.target.value)}
+        />
+        <InputLabel
+          title={'Imagem'}
+          type={'file'}
+          accept={'image/*'}
+          onChange={(e) => {
+            product_image = e.target.files[0];
+          }}
         />
         <div>
           <RadioButtonLabel

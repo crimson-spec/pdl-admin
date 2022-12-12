@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Table from '../../../components/table';
 import tableIcons from '../../../components/table/MaterialTableIcons';
@@ -7,11 +7,11 @@ import api from '../../../services/api';
 
 import { AreaList } from './styles';
 
-const ListProducts = () => {
+const ListSectors = () => {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
   const table = {
-    title: 'Produtos',
+    title: 'Setores',
     options: {
       search: false,
       draggable: false,
@@ -24,51 +24,12 @@ const ListProducts = () => {
         // hiddenByColumnsButton: true,
       },
       {
-        title: 'Imagem',
-        field: 'image_filename',
-        render: (rowData) => {
-          if (rowData.image_filename) {
-            return (
-              <img
-                src={'http://localhost:4000/images/' + rowData.id}
-                style={{ width: 80, borderRadius: '50%' }}
-              />
-            );
-          }
-        },
-      },
-      {
         title: 'Descrição',
         field: 'description',
       },
       {
-        title: 'Categoria',
-        field: 'category.description',
-      },
-      {
-        title: 'Valor',
-        field: 'value',
-      },
-      {
-        title: 'Quantidade',
-        field: 'quantity',
-      },
-      {
-        title: 'Medida',
-        field: 'measurement',
-      },
-      {
-        title: 'Status',
-        field: 'status',
-        lookup: {
-          true: 'Em estoque',
-          false: 'Sem estoque',
-        },
-      },
-      {
         title: 'Criado em',
         field: 'created_at',
-        dateSetting: { locale: 'America/Sao_paulo' },
       },
       {
         title: 'Alterado em',
@@ -78,14 +39,14 @@ const ListProducts = () => {
     actions: [
       {
         icon: tableIcons.Edit,
-        tooltip: 'Editar Produto',
+        tooltip: 'Editar Setor',
         onClick: (event, rowData) => {
-          navigate(`/update/product/${rowData.id}`);
+          navigate(`/update/sector/${rowData.id}`);
         },
       },
       {
         icon: tableIcons.Delete,
-        tooltip: 'Deletar Produto',
+        tooltip: 'Deletar Setor',
         onClick: (event, rowData) => {
           console.log(`Deletando item`);
           console.log(rowData);
@@ -93,9 +54,9 @@ const ListProducts = () => {
       },
       {
         icon: tableIcons.Add,
-        tooltip: 'Adicionar Produto',
+        tooltip: 'Adicionar Setor',
         isFreeAction: true,
-        onClick: () => navigate('/create/product'),
+        onClick: () => navigate('/create/sector'),
       },
     ],
   };
@@ -103,7 +64,7 @@ const ListProducts = () => {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await api.get('products');
+        const { data } = await api.get('sectors');
         setData(data);
       } catch (error) {
         console.log('Deu erro!');
@@ -119,4 +80,4 @@ const ListProducts = () => {
   );
 };
 
-export default ListProducts;
+export default ListSectors;

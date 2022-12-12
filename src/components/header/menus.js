@@ -11,6 +11,14 @@ export const menus = [
         routePath: '/list/users',
       },
       {
+        title: 'Setores',
+        routePath: '/list/sectors',
+      },
+      {
+        title: 'Categorias',
+        routePath: '/list/categories',
+      },
+      {
         title: 'Produtos',
         routePath: '/list/products',
       },

@@ -8,7 +8,7 @@ const api = axios.create({
 //   () => {},
 //   (error) => {
 //     if (error) {
-//       console.log({ title: 'axios erorr', error: error.response });
+//       console.log('REDIRECT!!');
 //     }
 //     return Promise.reject(error);
 //   }
