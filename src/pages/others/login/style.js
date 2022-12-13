@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -15,7 +15,7 @@ export const Leftside = styled.div`
 
 export const Rightside = styled.div`
   width: 60%;
-  height: 100vh;
+  height: 100v;
   min-width: 700px;
   display: flex;
   gap: 25px;

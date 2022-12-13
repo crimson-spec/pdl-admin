@@ -5,6 +5,8 @@ import PrivateRoute from './private';
 import Login from '../pages/others/login';
 import ErrorPage from '../pages/others/error-page';
 
+import OrdersReport from '../pages/reports/orders';
+
 import ListProducts from '../pages/list/products';
 import CreateUpdateProduct from '../pages/create-update/product';
 
@@ -25,7 +27,7 @@ const RoutesApp = () => {
           <Route
             exact
             path="/reports/orders"
-            element={<PrivateRoute Item={ErrorPage} />}
+            element={<PrivateRoute Item={OrdersReport} />}
           />
           <Route
             exact

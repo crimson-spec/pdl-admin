@@ -12,6 +12,7 @@ const Table = ({ tableConfig, data }) => {
         icons={tableIcons}
         columns={tableConfig.columns}
         data={data}
+        detailPanel={tableConfig.detailPanel}
         options={{
           columnsButton: true,
           headerStyle: {
